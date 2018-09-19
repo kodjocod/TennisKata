@@ -7,7 +7,7 @@ namespace Tennis
         private const int FIFTEEN = 1;
         private const int THIRTY = 2;
         private const int FORTY = 3;
-
+        private const int POINTS_AHEAD_OPPONENT = 2;
         public Player leftPlayer;
         public Player rightPlayer;
         public TennisGame1(string player1Name, string player2Name)
@@ -25,25 +25,7 @@ namespace Tennis
         }
 
 
-        public string ManageEquality(Player leftPlayer)
-        {
-            string score = "";
-            if (leftPlayer.Point == LOVE)
-            {
-                score = "Love-All";
-            }
-            else if (leftPlayer.Point == FIFTEEN)
-            {
-                score = "Fifteen-All";
-            }
-            else if (leftPlayer.Point == THIRTY)
-                score = "Thirty-All";
-            else
-                score = "Deuce";
 
-            return score;
-
-        }
         public string GetScore()
         {
             string score = "";
@@ -57,16 +39,16 @@ namespace Tennis
             // AVantage + Gagnant 
             else if (APlayerHasAdvantage())
             {
-                var minusResult = leftPlayer.Point - rightPlayer.Point;
-                if (minusResult == 1)
+                var gapBetweenPlayerPoints = leftPlayer.Point - rightPlayer.Point;
+                if (gapBetweenPlayerPoints == 1)
                 {
                     score = "Advantage player1";
                 }
-                else if (minusResult == -1)
+                else if (gapBetweenPlayerPoints == -1)
                 {
                     score = "Advantage player2";
                 }
-                else if (minusResult >= THIRTY)
+                else if (gapBetweenPlayerPoints >= POINTS_AHEAD_OPPONENT)
                 {
                     score = "Win for player1";
                 }
@@ -91,7 +73,7 @@ namespace Tennis
                         tempScore = rightPlayer.Point;
                     }
 
-                    if (tempScore == 0)
+                    if (tempScore == LOVE)
                     {
                         score += "Love";
                     }
@@ -111,7 +93,25 @@ namespace Tennis
             }
             return score;
         }
+        public string ManageEquality(Player leftPlayer)
+        {
+            string score = "";
+            if (leftPlayer.Point == LOVE)
+            {
+                score = "Love-All";
+            }
+            else if (leftPlayer.Point == FIFTEEN)
+            {
+                score = "Fifteen-All";
+            }
+            else if (leftPlayer.Point == THIRTY)
+                score = "Thirty-All";
+            else
+                score = "Deuce";
 
+            return score;
+
+        }
         private bool APlayerHasAdvantage()
         {
             return leftPlayer.Point >= 4 || rightPlayer.Point >= 4;
