@@ -1,3 +1,4 @@
+
 namespace Tennis
 {
     class TennisGame1 : ITennisGame
@@ -20,8 +21,6 @@ namespace Tennis
         public string GetScore()
         {
             string score = "";
-
-            // Equality 
             if (_mScore1 == _mScore2)
             {
                 switch (_mScore1)
@@ -51,18 +50,11 @@ namespace Tennis
             }
             else
             {
-                var tempScore = 0;
                 for (var i = 1; i < 3; i++)
                 {
-                    if (i == 1)
-                    {
-                        tempScore = _mScore1;
-                    }
-                    else
-                    {
-                        score += "-";
-                        tempScore = _mScore2;
-                    }
+                    var tempScore = 0;
+                    if (i == 1) tempScore = _mScore1;
+                    else { score += "-"; tempScore = _mScore2; }
                     switch (tempScore)
                     {
                         case 0:
@@ -84,4 +76,5 @@ namespace Tennis
         }
     }
 }
+
 
