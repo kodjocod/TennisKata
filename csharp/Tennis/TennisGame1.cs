@@ -61,9 +61,9 @@ namespace Tennis
 
         private string PlayUntilAdvantagePoint(string score)
         {
-            for (var i = 1; i < FORTY; i++)
+            for (var nbpoint = 1; nbpoint < FORTY; nbpoint++)
             {
-                var tempScore = MakeFirstPoint(ref score, i);
+                var tempScore = MakeFirstPoint(ref score, nbpoint);
 
                 score = AttributePoints(score, tempScore);
             }
