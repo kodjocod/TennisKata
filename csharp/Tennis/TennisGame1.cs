@@ -54,37 +54,58 @@ namespace Tennis
             else
             {
                 // Déroulement d'une partie
-                for (var i = 1; i < FORTY; i++)
-                {
-                    var tempScore = 0;
-                    if (i == 1)
-                    {
-                        tempScore = leftPlayer.Point;
-                    }
-                    else
-                    {
-                        score += "-";
-                        tempScore = rightPlayer.Point;
-                    }
-
-                    if (tempScore == LOVE)
-                    {
-                        score += "Love";
-                    }
-                    else if (tempScore == FIFTEEN)
-                    {
-                        score += "Fifteen";
-                    }
-                    else if (tempScore == THIRTY)
-                    {
-                        score += "Thirty";
-                    }
-                    else if (tempScore == FORTY)
-                    {
-                        score += "Forty";
-                    }
-                }
+                score = PlayUntilAdvantagePoint(score);
             }
+            return score;
+        }
+
+        private string PlayUntilAdvantagePoint(string score)
+        {
+            for (var i = 1; i < FORTY; i++)
+            {
+                var tempScore = MakeFirstPoint(ref score, i);
+
+                score = AttributePoints(score, tempScore);
+            }
+
+            return score;
+        }
+
+        private int MakeFirstPoint(ref string score, int i)
+        {
+            var tempScore = 0;
+            if (i == 1)
+            {
+                tempScore = leftPlayer.Point;
+            }
+            else
+            {
+                score += "-";
+                tempScore = rightPlayer.Point;
+            }
+
+            return tempScore;
+        }
+
+        private static string AttributePoints(string score, int tempScore)
+        {
+            if (tempScore == LOVE)
+            {
+                score += "Love";
+            }
+            else if (tempScore == FIFTEEN)
+            {
+                score += "Fifteen";
+            }
+            else if (tempScore == THIRTY)
+            {
+                score += "Thirty";
+            }
+            else if (tempScore == FORTY)
+            {
+                score += "Forty";
+            }
+
             return score;
         }
 
