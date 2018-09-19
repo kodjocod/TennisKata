@@ -3,6 +3,10 @@ namespace Tennis
 {
     class TennisGame1 : ITennisGame
     {
+        private const int LOVE = 0;
+        private const int FIFTEEN = 1;
+        private const int THIRTY = 2;
+        private const int FORTY = 3;
 
         public Player leftPlayer;
         public Player rightPlayer;
@@ -26,15 +30,15 @@ namespace Tennis
             // Egalité 
             if (leftPlayer.Point == rightPlayer.Point)
             {
-                if (leftPlayer.Point == 0)
+                if (leftPlayer.Point == LOVE)
                 {
                     score = "Love-All";
                 }
-                else if (leftPlayer.Point == 1)
+                else if (leftPlayer.Point == FIFTEEN)
                 {
                     score = "Fifteen-All";
                 }
-                else if (leftPlayer.Point == 2)
+                else if (leftPlayer.Point == THIRTY)
                     score = "Thirty-All";
                 else
                     score = "Deuce";
@@ -51,7 +55,7 @@ namespace Tennis
                 {
                     score = "Advantage player2";
                 }
-                else if (minusResult >= 2)
+                else if (minusResult >= THIRTY)
                 {
                     score = "Win for player1";
                 }
@@ -63,25 +67,32 @@ namespace Tennis
             else
             {
                 // Déroulement d'une partie
-                for (var i = 1; i < 3; i++)
+                for (var i = 1; i < FORTY; i++)
                 {
                     var tempScore = 0;
-                    if (i == 1) tempScore = leftPlayer.Point;
-                    else { score += "-"; tempScore = rightPlayer.Point; }
+                    if (i == 1)
+                    {
+                        tempScore = leftPlayer.Point;
+                    }
+                    else
+                    {
+                        score += "-";
+                        tempScore = rightPlayer.Point;
+                    }
 
                     if (tempScore == 0)
                     {
                         score += "Love";
                     }
-                    else if (tempScore == 1)
+                    else if (tempScore == FIFTEEN)
                     {
                         score += "Fifteen";
                     }
-                    else if (tempScore == 2)
+                    else if (tempScore == THIRTY)
                     {
                         score += "Thirty";
                     }
-                    else if (tempScore == 3)
+                    else if (tempScore == FORTY)
                     {
                         score += "Forty";
                     }
