@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Tennis
 {
-    class Player
+    public class Player
     {
         private readonly string name;
-        private readonly int point;
+        public int Point { get; set; }
 
-        public Player(string name, int point)
+        public Player(string name)
         {
             this.name = name;
-            this.point = point;
+            this.Point = 0;
         }
     }
 }

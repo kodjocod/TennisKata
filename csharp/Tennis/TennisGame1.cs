@@ -3,44 +3,46 @@ namespace Tennis
 {
     class TennisGame1 : ITennisGame
     {
-        private int _mScore1;
-        private int _mScore2;
 
+        public Player leftPlayer;
+        public Player rightPlayer;
         public TennisGame1(string player1Name, string player2Name)
         {
+            leftPlayer = new Player("leftPlayer");
+            rightPlayer = new Player("rightPlayer");
         }
 
         public void WonPoint(string playerName)
         {
             if (playerName == "player1")
-                _mScore1 += 1;
+                leftPlayer.Point += 1;
             else
-                _mScore2 += 1;
+                rightPlayer.Point += 1;
         }
 
         public string GetScore()
         {
             string score = "";
             // Egalité 
-            if (_mScore1 == _mScore2)
+            if (leftPlayer.Point == rightPlayer.Point)
             {
-                if (_mScore1 == 0)
+                if (leftPlayer.Point == 0)
                 {
                     score = "Love-All";
                 }
-                else if (_mScore1 == 1)
+                else if (leftPlayer.Point == 1)
                 {
                     score = "Fifteen-All";
                 }
-                else if (_mScore1 == 2)
+                else if (leftPlayer.Point == 2)
                     score = "Thirty-All";
                 else
                     score = "Deuce";
             }
             // AVantage + Gagnant 
-            else if (_mScore1 >= 4 || _mScore2 >= 4)
+            else if (leftPlayer.Point >= 4 || rightPlayer.Point >= 4)
             {
-                var minusResult = _mScore1 - _mScore2;
+                var minusResult = leftPlayer.Point - rightPlayer.Point;
                 if (minusResult == 1)
                 {
                     score = "Advantage player1";
@@ -64,8 +66,8 @@ namespace Tennis
                 for (var i = 1; i < 3; i++)
                 {
                     var tempScore = 0;
-                    if (i == 1) tempScore = _mScore1;
-                    else { score += "-"; tempScore = _mScore2; }
+                    if (i == 1) tempScore = leftPlayer.Point;
+                    else { score += "-"; tempScore = rightPlayer.Point; }
 
                     if (tempScore == 0)
                     {
