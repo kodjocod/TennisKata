@@ -24,27 +24,38 @@ namespace Tennis
                 rightPlayer.Point += 1;
         }
 
+
+        public string ManageEquality(Player leftPlayer)
+        {
+            string score = "";
+            if (leftPlayer.Point == LOVE)
+            {
+                score = "Love-All";
+            }
+            else if (leftPlayer.Point == FIFTEEN)
+            {
+                score = "Fifteen-All";
+            }
+            else if (leftPlayer.Point == THIRTY)
+                score = "Thirty-All";
+            else
+                score = "Deuce";
+
+            return score;
+
+        }
         public string GetScore()
         {
             string score = "";
+
             // Egalité 
             if (leftPlayer.Point == rightPlayer.Point)
             {
-                if (leftPlayer.Point == LOVE)
-                {
-                    score = "Love-All";
-                }
-                else if (leftPlayer.Point == FIFTEEN)
-                {
-                    score = "Fifteen-All";
-                }
-                else if (leftPlayer.Point == THIRTY)
-                    score = "Thirty-All";
-                else
-                    score = "Deuce";
+                score = ManageEquality(leftPlayer);
+
             }
             // AVantage + Gagnant 
-            else if (leftPlayer.Point >= 4 || rightPlayer.Point >= 4)
+            else if (APlayerHasAdvantage())
             {
                 var minusResult = leftPlayer.Point - rightPlayer.Point;
                 if (minusResult == 1)
@@ -101,7 +112,11 @@ namespace Tennis
             return score;
         }
 
-      
+        private bool APlayerHasAdvantage()
+        {
+            return leftPlayer.Point >= 4 || rightPlayer.Point >= 4;
+        }
+
     }
 }
 
