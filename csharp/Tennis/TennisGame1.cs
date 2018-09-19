@@ -1,4 +1,6 @@
 
+using System;
+
 namespace Tennis
 {
     class TennisGame1 : ITennisGame
@@ -34,28 +36,20 @@ namespace Tennis
             if (leftPlayer.Point == rightPlayer.Point)
             {
                 score = ManageEquality(leftPlayer);
-
             }
             // AVantage + Gagnant 
             else if (APlayerHasAdvantage())
             {
                 var gapBetweenPlayerPoints = leftPlayer.Point - rightPlayer.Point;
-                if (gapBetweenPlayerPoints == 1)
+                if (Math.Abs(gapBetweenPlayerPoints) >= POINTS_AHEAD_OPPONENT)
                 {
-                    score = "Advantage player1";
-                }
-                else if (gapBetweenPlayerPoints == -1)
-                {
-                    score = "Advantage player2";
-                }
-                else if (gapBetweenPlayerPoints >= POINTS_AHEAD_OPPONENT)
-                {
-                    score = "Win for player1";
+                    score = ManageWinning(gapBetweenPlayerPoints);
                 }
                 else
                 {
-                    score = "Win for player2";
+                    score = ManageAdvantage(gapBetweenPlayerPoints);
                 }
+
             }
             else
             {
@@ -93,25 +87,44 @@ namespace Tennis
             }
             return score;
         }
-        public string ManageEquality(Player leftPlayer)
-        {
-            string score = "";
-            if (leftPlayer.Point == LOVE)
-            {
-                score = "Love-All";
-            }
-            else if (leftPlayer.Point == FIFTEEN)
-            {
-                score = "Fifteen-All";
-            }
-            else if (leftPlayer.Point == THIRTY)
-                score = "Thirty-All";
-            else
-                score = "Deuce";
 
-            return score;
+        private string ManageAdvantage(int gapBetweenPlayerPoints)
+        {
+            if (gapBetweenPlayerPoints == 1)
+            {
+                return "Advantage player1";
+            }
+            return "Advantage player2";
 
         }
+
+        private string ManageWinning(int gapBetweenPlayerPoints)
+        {
+            if (gapBetweenPlayerPoints >= POINTS_AHEAD_OPPONENT)
+            {
+                return "Win for player1";
+            }
+            return "Win for player2";
+
+        }
+
+        public string ManageEquality(Player leftPlayer)
+        {
+            if (leftPlayer.Point == LOVE)
+            {
+                return "Love-All";
+            }
+
+            if (leftPlayer.Point == FIFTEEN)
+            {
+                return "Fifteen-All";
+            }
+
+            if (leftPlayer.Point == THIRTY)
+                return "Thirty-All";
+            return "Deuce";
+        }
+
         private bool APlayerHasAdvantage()
         {
             return leftPlayer.Point >= 4 || rightPlayer.Point >= 4;
